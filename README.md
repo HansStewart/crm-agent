@@ -1,106 +1,87 @@
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# CRM Automation Agent
 
-  CRM AUTOMATION AGENT
-  Lead scoring, structured CRM writeback, and automated sales
-  follow-up logic — powered by GPT-4o and the HubSpot API.
-  by Hans Stewart · hansstewart.dev
+> A lead-scoring and CRM workflow service that evaluates contact quality, writes back structured updates, and supports automated sales follow-up logic inside HubSpot.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**by Hans Stewart &nbsp;·&nbsp; [hansstewart.dev](https://hansstewart.dev)**
 
-  Architecture    →   hansstewart.github.io/ai-architecture
-  Portfolio       →   hansstewart.dev
-  GitHub          →   github.com/HansStewart/crm-agent
+[Architecture](https://hansstewart.github.io/ai-architecture) &nbsp;·&nbsp; [Portfolio](https://hansstewart.dev) &nbsp;·&nbsp; [GitHub](https://github.com/HansStewart/crm-agent)
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WHAT IT DOES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+---
 
-  A lead-scoring and CRM workflow service that evaluates contact quality,
-  writes back structured updates, and supports automated sales follow-up
-  logic inside HubSpot.
+## What It Does
 
-  The agent receives lead and contact records from CRM-connected systems
-  or workflow triggers, uses GPT-4o to assess fit, intent, and likelihood
-  of sales progress, translates that evaluation into a structured scoring
-  layer, and then writes the result back into HubSpot — updating scores,
-  fields, follow-up metadata, and triggering downstream workflows.
+Receives lead and contact records from CRM-connected systems or workflow triggers, uses GPT-4o to assess fit, intent, and likelihood of sales progress, translates that evaluation into a structured scoring layer, and writes the result back into HubSpot — updating scores, fields, follow-up metadata, and triggering downstream workflows.
 
-  Primary benefit: automated lead triage without forcing sales reps to
-  manually assess every incoming record. Use cases: lead routing,
-  prioritization, enrichment, and nurture automation.
+**Primary benefit:** automated lead triage without forcing sales reps to manually assess every incoming record.  
+**Operational role:** bridges AI evaluation and CRM-native workflow execution.  
+**Use cases:** lead routing, prioritization, enrichment, and nurture automation.
 
+---
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-BACKEND WORKFLOW — 4 STEPS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Backend Workflow
 
-  Step 01 — Record intake
-    Pulls or receives contact and lead records requiring evaluation.
-    Loads profile attributes, engagement data, and business context.
-    Builds the scoring input object for AI-assisted prioritization.
-    → Input: Lead and contact records
+**Step 1 — Record intake** `Input: Lead and contact records`
+Pulls or receives contact and lead records requiring evaluation. Loads profile attributes, engagement data, and business context. Builds the scoring input object for AI-assisted prioritization.
 
-  Step 02 — Lead evaluation
-    Uses GPT-4o to assess fit, intent, and likelihood of sales progress.
-    Translates contextual signals into a structured scoring layer.
-    Determines whether the lead should be prioritized, nurtured, or
-    routed differently.
-    → Intermediate: Score + action recommendation
+**Step 2 — Lead evaluation** `Intermediate: Score + action recommendation`
+Uses GPT-4o to assess fit, intent, and likelihood of sales progress. Translates contextual signals into a structured scoring layer. Determines whether the lead should be prioritized, nurtured, or routed differently.
 
-  Step 03 — Automation actioning
-    Triggers updates, flags, and downstream follow-up workflows.
-    Supports CRM enrichment and automated sales operations.
-    Ensures output can be consumed by human reps or workflow engines.
-    → Processing: Scoring → CRM workflow logic
+**Step 3 — Automation actioning** `Processing: Scoring → CRM workflow logic`
+Triggers updates, flags, and downstream follow-up workflows. Supports CRM enrichment and automated sales operations. Ensures output can be consumed by human reps or workflow engines.
 
-  Step 04 — CRM writeback
-    Updates scores, fields, and follow-up metadata on the HubSpot record.
-    Keeps the CRM as the source of truth for sales execution.
-    Returns a structured result confirming what changed.
-    → Output: CRM updates + score state
+**Step 4 — CRM writeback** `Output: CRM updates + score state`
+Updates scores, fields, and follow-up metadata on the HubSpot record. Keeps the CRM as the source of truth for sales execution. Returns a structured result confirming what changed.
 
+---
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-OPERATIONAL ROLE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Tech Stack
 
-  Bridges AI evaluation and CRM-native workflow execution. The scoring
-  output is not just a number returned to a human — it becomes an
-  operational input that drives real CRM actions and workflow decisions
-  without manual intervention.
+| Layer | Technology |
+|---|---|
+| Language | Python 3.11 |
+| Framework | Flask |
+| Server | Gunicorn |
+| AI Model | OpenAI GPT-4o |
+| CRM | HubSpot API |
+| Deployment | Google Cloud Run — us-east1 |
 
+---
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TECH STACK
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Local Development
 
-  Language        Python 3.11
-  Framework       Flask
-  Server          Gunicorn
-  AI Model        OpenAI GPT-4o (lead scoring and evaluation)
-  CRM             HubSpot API
-  Deployment      Google Cloud Run — us-east1
+```bash
+git clone https://github.com/HansStewart/crm-agent.git
+cd crm-agent
+pip install -r requirements.txt
+cp .env.example .env
+# Add OPENAI_API_KEY and HUBSPOT_API_KEY to .env
+python main.py
+```
 
+---
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-LOCAL DEVELOPMENT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Environment Variables
 
-  git clone https://github.com/HansStewart/crm-agent.git
-  cd crm-agent
-  pip install -r requirements.txt
-  cp .env.example .env
-  → Add OPENAI_API_KEY and HUBSPOT_API_KEY to .env
-  python main.py
+| Variable | Required | Purpose |
+|---|---|---|
+| `OPENAI_API_KEY` | Yes | Lead evaluation and scoring logic |
+| `HUBSPOT_API_KEY` | Yes | CRM record read and write access |
 
+---
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ENVIRONMENT VARIABLES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Full Agent Ecosystem
 
-  OPENAI_API_KEY       required    Lead evaluation and scoring logic
-  HUBSPOT_API_KEY      required    CRM record read and write access
+| Agent | Repository |
+|---|---|
+| Website Audit Agent | [github.com/HansStewart/website-audit-agent](https://github.com/HansStewart/website-audit-agent) |
+| AI Content Pipeline | [github.com/HansStewart/ai-content-pipeline](https://github.com/HansStewart/ai-content-pipeline) |
+| Voice-to-CRM Agent | [github.com/HansStewart/voice-to-crm](https://github.com/HansStewart/voice-to-crm) |
+| Pipeline Intelligence Agent | [github.com/HansStewart/pipeline-intelligence-agent](https://github.com/HansStewart/pipeline-intelligence-agent) |
+| Multi-Agent BI System | [github.com/HansStewart/multi-agent](https://github.com/HansStewart/multi-agent) |
+| AI Data Agent | [github.com/HansStewart/ai-data-agent](https://github.com/HansStewart/ai-data-agent) |
+| RAG Document Intelligence | [github.com/HansStewart/rag-agent](https://github.com/HansStewart/rag-agent) |
+| AI Architecture | [hansstewart.github.io/ai-architecture](https://hansstewart.github.io/ai-architecture) |
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Hans Stewart · Marketing Automation Engineer · hansstewart.dev
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+---
+
+**Hans Stewart &nbsp;·&nbsp; Marketing Automation Engineer &nbsp;·&nbsp; [hansstewart.dev](https://hansstewart.dev)**
